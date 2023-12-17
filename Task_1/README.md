@@ -6,7 +6,7 @@ This repository contains solutions to various problems, each in its own file.
 
 ## Problem List
 
-1. [Valid Parentheses](valid_parentheses.md) - [Link to Problem](https://leetcode.com/problems/valid-parentheses/)
+1. [Valid Parentheses](Valid_Parentheses.md) - [Link to Problem](https://leetcode.com/problems/valid-parentheses/)
 
 ## Usage
 
