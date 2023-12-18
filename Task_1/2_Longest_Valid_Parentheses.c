@@ -1,4 +1,55 @@
-int length(char *s)
+#define SIZE 10
+
+struct Stack
+{
+    int *arr;
+    int size;
+    int top;
+};
+
+void createStack(struct Stack *stk)
+{
+    stk->arr = (int*)malloc(SIZE * sizeof(int));
+    stk->top = -1;
+    stk->size = SIZE;
+}
+
+void push(struct Stack *stk, int ele)
+{
+    if((stk->size - 1) == stk->top)
+    {
+        stk->size = stk->size * 2;
+        stk->arr = (int*)realloc(stk->arr, stk->size * sizeof(int));
+    }
+    ++stk->top;
+    stk->arr[stk->top] = ele;
+}
+
+void pop(struct Stack *stk)
+{
+    if(stk->top == -1)
+    {
+        return;
+    }
+    stk->top--;
+}
+
+int top(struct Stack *stk)
+{
+    if(stk->top != -1)
+    {
+        return stk->arr[stk->top];
+    }
+    return -1;
+}
+
+int empty(struct Stack *stk)
+{
+    if(stk->top == -1) return 1;
+    return 0;
+}
+
+int findLength(char *s)
 {
     int count = 0;
     for(int i = 0; s[i] != '\0'; i++)
@@ -10,59 +61,37 @@ int length(char *s)
 
 int longestValidParentheses(char* s) 
 {
-    int size = length(s);
+    int size = findLength(s);  
+    struct Stack stk;
+    createStack(&stk);
     int ans = 0;
-    int left = 0;
-    int right = 0;
+    push(&stk, -1);
 
     for(int i = 0; i < size; i++)
     {
         if(s[i] == '(')
         {
-            left++;
+            push(&stk, i);
         }
         else
         {
-            right++;
-        }
-        if(left == right)
-        {
-            if((2 * left ) > ans)
+            if(empty(&stk) == 0)
             {
-                ans = 2 * left;
+                pop(&stk);
+            }
+            if(empty(&stk) == 0)
+            {
+                int currAns = i - top(&stk);
+                if(currAns > ans)
+                {
+                    ans = currAns;
+                }
+            }
+            else
+            {
+                push(&stk, i);
             }
         }
-        else if(right > left)
-        {
-            left = 0;
-            right = 0;
-        }
-    }    
-    left = 0;
-    right = 0;
-
-    for(int i = size - 1; i >= 0; i--)
-    {
-        if(s[i] == '(')
-        {
-            left++;
-        }
-        else
-        {
-            right++;
-        }
-        if(left == right)
-        {
-            if((2 * left) > ans)
-            {
-                ans = 2 * left;
-            }
-        }
-        if(left > right)
-        {
-            left = 0;
-            right = 0;
-        }
-    } 
+    }  
     return ans;
 }
