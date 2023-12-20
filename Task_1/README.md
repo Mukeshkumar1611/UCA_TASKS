@@ -14,6 +14,8 @@ This repository contains solutions to various problems, each in its own file.
 
 4. [Remove Duplicate Letters](4_Remove_Duplicate_Letters.c) - [Link to Problem](https://leetcode.com/problems/remove-duplicate-letters/description/)
 
+5. [Design Circular Queue](5_Design_Circular_Queue.c) - [Link to Problem](https://leetcode.com/problems/design-circular-queue/description/)
+
 ## Usage
 
 You can find the problem statement, related links, and solutions within each file.
